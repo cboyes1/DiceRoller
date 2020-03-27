@@ -2,7 +2,11 @@ import random
 import os
 import tkinter as tk
 from PIL import Image,ImageTk
+from pathlib import Path
 
+
+
+CurrentPath = str(Path().absolute())
 
 
 
@@ -70,10 +74,10 @@ def rollSum():
 
 root = tk.Tk()
 root.title("Dice Rolling Application")
-root.iconbitmap("CND.ico")
+root.iconbitmap(CurrentPath + "/Images/CND.ico")
 
 canvas = tk.Canvas(root, height =300, width = 700)
-image = ImageTk.PhotoImage(Image.open("MainBackground.jpg"))
+image = ImageTk.PhotoImage(Image.open(CurrentPath + "/Images/MainBackground.jpg"))
 canvas.create_image(0,0,anchor="nw",image=image)
 canvas.pack()
 
