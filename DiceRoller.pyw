@@ -3,6 +3,13 @@ import os
 import tkinter as tk
 from PIL import Image,ImageTk
 from pathlib import Path
+import webbrowser
+
+Tavern = 'https://www.youtube.com/watch?v=Rj08NzTD8pg&list=PLGsgKO5WfZ4D2vjOCv6ywoFdkKfECVHrs'
+GFM = 'https://www.youtube.com/watch?v=LsOgIWGJRxc&list=PLGsgKO5WfZ4Ap-elhFzvf0aSR3NQwvh_V'
+Travel = 'https://www.youtube.com/playlist?list=PLGsgKO5WfZ4BaFls8RqI17iyuO1g5gQmG'
+DA = 'https://www.youtube.com/watch?v=wScEFaoqwPM&list=PLGsgKO5WfZ4AT7_K8JM2kRlIK7uhLfF2N'
+EFM = 'https://www.youtube.com/watch?v=qwJj2EpC8vg&list=PLGsgKO5WfZ4DJ8dYQlX46-gY9yz7qJZyj'
 
 
 
@@ -14,7 +21,7 @@ root = tk.Tk()
 root.title("Dice Rolling Application")
 root.iconbitmap(CurrentPath + "/Images/CND.ico")
 
-canvas = tk.Canvas(root, height =300, width = 700)
+canvas = tk.Canvas(root, height =400, width = 1200)
 image = ImageTk.PhotoImage(Image.open(CurrentPath + "/Images/MainBackground.jpg"))
 canvas.create_image(0,0,anchor="nw",image=image)
 canvas.pack()
@@ -110,6 +117,12 @@ canvas.create_window(200, 150, window=label2)
 label3 = tk.Label(root, text = "   Enter Modifier   ", bg = "light grey", font = ('Helvetica', 12, 'bold'))
 canvas.create_window(200, 200, window=label3)
 
+label4 = tk.Label(root, text = "                    Click Buttons For Music                    ", bg = "light grey", font = ('Helvetica', 12, 'bold'))
+canvas.create_window(900, 50, window=label4)
+
+label5 = tk.Label(root, text = "               Care to Roll the Dice?            ", bg = "light grey", font = ('Helvetica', 12, 'bold'))
+canvas.create_window(275, 50, window=label5)
+
 #Entry Panels
 enterNumDice = tk.Entry(root)
 canvas.create_window(350, 100, window = enterNumDice)
@@ -123,17 +136,33 @@ canvas.create_window(350, 200, window = enterMod)
 
 #Instruction Label
 label = tk.Label(root, text = "Please Fill the Required Boxes")
-canvas.create_window(350, 275, window=label)
+canvas.create_window(275, 300, window=label)
 
 
 #Clickable Buttons
-rollButton = tk.Button(text='Roll The Dice', command=lambda: roll(False), bg = "grey")
-canvas.create_window(500, 100, window=rollButton)
+rollButton = tk.Button(text='     Roll     ', command=lambda: roll(False), bg = "grey")
+canvas.create_window(200, 250, window=rollButton)
 
-rollSumButton = tk.Button(text='Roll and Sum The Dice', command=lambda: roll(True), bg = "grey")
-canvas.create_window(500, 150, window=rollSumButton)
+rollSumButton = tk.Button(text='Roll and Sum', command=lambda: roll(True), bg = "grey")
+canvas.create_window(350, 250, window=rollSumButton)
 
 
+#Ambiance Buttons
+TravelMusic= tk.Button(text='Open Travel Music Playlist', command=lambda: webbrowser.open(Travel), bg = "grey")
+canvas.create_window(800, 100, window=TravelMusic)
+
+TavernMusic= tk.Button(text='Open Tavern Music Playlist', command=lambda: webbrowser.open(Tavern), bg = "grey")
+canvas.create_window(800, 150, window=TavernMusic)
+
+DungeonMusic= tk.Button(text='Open Dungeon Ambiance', command=lambda: webbrowser.open(DA), bg = "grey")
+canvas.create_window(800, 200, window=DungeonMusic)
+
+#Fight Music Buttons
+GFMb= tk.Button(text='Open Generic Fight Music', command=lambda: webbrowser.open(GFM), bg = "grey")
+canvas.create_window(1000, 100, window=GFMb)
+
+EFMb= tk.Button(text='Open Epic Fight Music', command=lambda: webbrowser.open(EFM), bg = "grey")
+canvas.create_window(1000, 150, window=EFMb)
 
 
 root.mainloop()
