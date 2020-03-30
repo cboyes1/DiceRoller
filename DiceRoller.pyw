@@ -9,47 +9,43 @@ from pathlib import Path
 CurrentPath = str(Path().absolute())
 
 
+def ValidRoll(rollData):
+    #Consumes a variable. Returns True if it is a positive integer. Returns False Otherwise.
+    isValid = False
+    
+    if isinstance(rollData, str):
+        if rollData.isdigit():
+            rollData = int(rollData)
 
-def isInt(s):
-    try: 
-        int(s)
-        return True
-    except ValueError:
-        return False
 
-
-def ValidRoll(sides,rolls):
-    isValid1 = False
-    isValid2 = False
-
-    if type(sides) == int:
-        if sides > 0:
-            isValid1 = True
-    if type(rolls) == int:
-        if rolls > 0:
-            isValid2 = True
-    if isValid1 == True and isValid2 == True:
+    if isinstance(rollData, int):
+        if rollData > 0:
+            isValid = True
+    
+    if isValid:
         return True
     else:
         return False
 
 
 
-def roll():
-
+def roll(sumBool):
+    #Consumes a boolean. If False the array of rolled dice are displayed on the screen. If True the sum of the rolled dice array is displayed instead.
     dieRolls = []
-
-    if( not isInt(enterSidesDice.get()) ):
+    
+    if not ValidRoll(enterSidesDice.get()):
         dieSize = "Please Enter the Number of Sides"
     else:
         dieSize = int(enterSidesDice.get())
-    if( not isInt(enterNumDice.get()) ):
+        
+    if not ValidRoll(enterNumDice.get()):
         dieNum = "Please Enter the Number of Rolls"
     else:
         dieNum = int(enterNumDice.get())
 
-    if ValidRoll(dieNum,dieSize):
+    if not sumBool and ValidRoll(dieNum) and ValidRoll(dieSize):
         i = 0
+        
         while(i < dieNum):
             if(dieSize > 0):
                 currRoll = random.randint(1,dieSize)
@@ -57,39 +53,25 @@ def roll():
             i = i + 1
         dispText = ', '.join(map(str,dieRolls))
 
-    else:
-        dispText = "Please Enter a Positive Integer in Both Boxes"
-    label['text'] = dispText
 
-
-def rollSum():
-
-    dieRolls = []
-    sum = 0
-
-    if( not isInt(enterSidesDice.get()) ):
-        dieSize = "Please Enter the Number of Sides"
-    else:
-        dieSize = int(enterSidesDice.get())
-    if( not isInt(enterNumDice.get()) ):
-        dieNum = "Please Enter the Number of Rolls"
-    else:
-        dieNum = int(enterNumDice.get())
-
-    if ValidRoll(dieNum,dieSize):
+    elif sumBool and ValidRoll(dieNum) and ValidRoll(dieSize):
         i = 0
+        sum = 0
         while(i < dieNum):
             currRoll = random.randint(1,dieSize)
             sum = sum + currRoll
             dieRolls.append(currRoll)
             i = i + 1
-        dispText = sum
-
+        dispText = str(sum)
+    
     else:
+        "Did not Run"
         dispText = "Please Enter a Positive Integer in Both Boxes"
+    
     label['text'] = dispText
 
 
+#Creation of GUI starts here
 root = tk.Tk()
 root.title("Dice Rolling Application")
 root.iconbitmap(CurrentPath + "/Images/CND.ico")
@@ -116,15 +98,10 @@ label = tk.Label(root, text = "Please Enter a Positive Integer in Both Boxes")
 canvas.create_window(350, 200, window=label)
 
 
-
-
-    
-    
-
-rollButton = tk.Button(text='Roll The Dice', command=roll, bg = "grey")
+rollButton = tk.Button(text='Roll The Dice', command=lambda: roll(False), bg = "grey")
 canvas.create_window(350, 100, window=rollButton)
 
-rollSumButton = tk.Button(text='Roll and Sum The Dice', command=rollSum, bg = "grey")
+rollSumButton = tk.Button(text='Roll and Sum The Dice', command=lambda: roll(True), bg = "grey")
 canvas.create_window(350, 150, window=rollSumButton)
 
 
