@@ -18,6 +18,23 @@ def isInt(s):
         return False
 
 
+def ValidRoll(sides,rolls):
+    isValid1 = False
+    isValid2 = False
+
+    if type(sides) == int:
+        if sides > 0:
+            isValid1 = True
+    if type(rolls) == int:
+        if rolls > 0:
+            isValid2 = True
+    if isValid1 == True and isValid2 == True:
+        return True
+    else:
+        return False
+
+
+
 def roll():
 
     dieRolls = []
@@ -31,11 +48,12 @@ def roll():
     else:
         dieNum = int(enterNumDice.get())
 
-    if (type(dieNum) == int and type(dieSize) == int):
+    if ValidRoll(dieNum,dieSize):
         i = 0
         while(i < dieNum):
-            currRoll = random.randint(1,dieSize)
-            dieRolls.append(currRoll)
+            if(dieSize > 0):
+                currRoll = random.randint(1,dieSize)
+                dieRolls.append(currRoll)
             i = i + 1
         dispText = ', '.join(map(str,dieRolls))
 
@@ -58,7 +76,7 @@ def rollSum():
     else:
         dieNum = int(enterNumDice.get())
 
-    if (type(dieNum) == int and type(dieSize) == int):
+    if ValidRoll(dieNum,dieSize):
         i = 0
         while(i < dieNum):
             currRoll = random.randint(1,dieSize)
