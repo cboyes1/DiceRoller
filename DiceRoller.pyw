@@ -84,7 +84,7 @@ def roll(sumBool):
         sum = 0
 
         while(i < dieNum):
-            currRoll = random.randint(1,dieSize)
+            currRoll = random.randint(1,dieSize) + mod
             if currRoll < 1:
                     currRoll = 1
             sum = sum + currRoll
